@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Osman Ahmed Omar | Full Stack Developer — Doha, Qatar</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Syne:wght@400;600;700;800&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- WA FLOAT -->
+<a class="wa-float" href="https://wa.me/97455189022" target="_blank">💬</a>
+
+<!-- CHAT BUBBLE -->
+<button class="chat-bubble" id="chatBubble" onclick="toggleChat()" title="Live Chat">🗨️</button>
+
+<!-- LIVE CHAT WIDGET -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-head">
+    <div class="chat-avatar">👨‍💻</div>
+    <div class="chat-name-wrap">
+      <div class="chat-name">Osman Ahmed Omar</div>
+      <div class="chat-online" id="chatOnlineStatus">
+        <span class="en">Online Now</span>
+        <span class="ar">متصل الآن</span>
+      </div>
+    </div>
+    <button class="chat-x" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-quick-wrap" id="chatQuick">
+    <button class="chat-qbtn" onclick="quickSend('Hi Osman! 👋')"><span class="en">Say Hi</span><span class="ar">مرحبا</span></button>
+    <button class="chat-qbtn" onclick="quickSend('I need a website')"><span class="en">Need Website</span><span class="ar">أحتاج موقع</span></button>
+    <button class="chat-qbtn" onclick="quickSend('Tell me about AHMS')"><span class="en">About AHMS</span><span class="ar">عن AHMS</span></button>
+    <button class="chat-qbtn" onclick="quickSend('What are your rates?')"><span class="en">Pricing</span><span class="ar">الأسعار</span></button>
+  </div>
+  <div class="chat-msgs" id="chatMsgs">
+    <div class="chat-msg bot">
+      <span class="en">👋 Hi! I'm Osman. How can I help you today?</span>
+      <span class="ar">👋 مرحباً! أنا عثمان. كيف يمكنني مساعدتك اليوم؟</span>
+    </div>
+    <div class="chat-msg bot">
+      <span class="en">Ask me about my projects, services, or pricing!</span>
+      <span class="ar">اسألني عن مشاريعي أو خدماتي أو الأسعار!</span>
+    </div>
+  </div>
+  <div class="chat-inp-wrap">
+    <input class="chat-inp" id="chatInp" placeholder="" onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<!-- HIRE MODAL -->
+<div class="modal-overlay" id="hireModal" onclick="closeHireOutside(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">
+        <span class="en">Let's <em>Work Together</em></span>
+        <span class="ar">لنعمل <em>معاً</em></span>
+      </div>
+      <div class="modal-sub">
+        <span class="en">Tell me about your project and I'll reply within 24 hours</span>
+        <span class="ar">أخبرني عن مشروعك وسأرد خلال 24 ساعة</span>
+      </div>
+      <button class="modal-close" onclick="closeHire()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="hireForm">
+        <div class="form-group">
+          <label class="form-label"><span class="en">Your Name</span><span class="ar">اسمك</span></label>
+          <input class="form-input" id="hfName" type="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span class="en">Email</span><span class="ar">البريد</span></label>
+          <input class="form-input" id="hfEmail" type="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span class="en">Project Type</span><span class="ar">نوع المشروع</span></label>
+          <select class="modal-select" id="hfType">
+            <option value=""><span class="en">-- Select --</span></option>
+            <option>Website / Web App</option>
+            <option>Hospital Management System</option>
+            <option>Payroll / Finance System</option>
+            <option>Travel Platform</option>
+            <option>Mobile App</option>
+            <option>Consulting</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span class="en">Budget</span><span class="ar">الميزانية</span></label>
+          <select class="modal-select" id="hfBudget">
+            <option value=""><span class="en">-- Select --</span></option>
+            <option>Under $500</option>
+            <option>$500 – $2,000</option>
+            <option>$2,000 – $5,000</option>
+            <option>$5,000 – $10,000</option>
+            <option>$10,000+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span class="en">Message</span><span class="ar">الرسالة</span></label>
+          <textarea class="form-input form-textarea" id="hfMsg" style="min-height:90px;resize:vertical;"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitHire()">
+          <span class="en">Send Request ✦</span>
+          <span class="ar">إرسال الطلب ✦</span>
+        </button>
+      </div>
+      <div class="modal-success" id="hireSuccess">
+        <div class="modal-success-icon">🎉</div>
+        <div class="modal-success-title"><span class="en">Request Sent!</span><span class="ar">تم الإرسال!</span></div>
+        <div class="modal-success-text">
+          <span class="en">Thank you! Osman will contact you within 24 hours.</span>
+          <span class="ar">شكراً! سيتواصل معك عثمان خلال 24 ساعة.</span>
+        </div>
+        <br><br>
+        <a href="https://wa.me/97455189022" target="_blank" class="btn-green" style="display:inline-flex;justify-content:center;">💬 WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" id="btnAR" onclick="setLang('ar')">ع</button>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">O · A · Omar</div>
+  <div class="nav-links">
+    <a href="#about"><span class="en">About</span><span class="ar">عن</span></a>
+    <a href="#education"><span class="en">Education</span><span class="ar">تعليم</span></a>
+    <a href="#skills"><span class="en">Skills</span><span class="ar">مهارات</span></a>
+    <a href="#projects"><span class="en">Projects</span><span class="ar">مشاريع</span></a>
+    <a href="#certificates"><span class="en">Certificates</span><span class="ar">شهادات</span></a>
+    <a href="#contact"><span class="en">Contact</span><span class="ar">تواصل</span></a>
+    <a href="https://wa.me/97455189022" target="_blank" class="nav-wa">💬 WhatsApp</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span class="en">Based in Doha, Qatar</span><span class="ar">الدوحة، قطر</span></div>
+    <h1 class="hero-name">Osman Ahmed<span>Omar</span></h1>
+    <div class="hero-title">
+      <span class="en">Full Stack Developer &nbsp;·&nbsp; Tourism Expert &nbsp;·&nbsp; Finance Specialist</span>
+      <span class="ar">مطور ويب متكامل &nbsp;·&nbsp; خبير سياحة &nbsp;·&nbsp; متخصص مالي</span>
+    </div>
+    <p class="hero-bio">
+      <span class="en">Two decades of cross-industry mastery — from global tourism to financial management, now channeled into cutting-edge web development.</span>
+      <span class="ar">عقدان من الخبرة المتعددة — من السياحة الدولية إلى الإدارة المالية، والآن في تطوير الويب الحديث.</span>
+    </p>
+    <div class="hero-cta">
+      <button class="btn-gold" onclick="openHire()">✦ <span class="en">Hire Me</span><span class="ar">وظفني</span></button>
+      <a href="https://wa.me/97455189022" target="_blank" class="btn-green">💬 WhatsApp</a>
+      <a href="#cv-download" class="btn-ghost">⬇ <span class="en">Download CV</span><span class="ar">تحميل السيرة</span></a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="images/img-001.png" alt="Osman Ahmed Omar">
+    <div class="photo-badges">
+      <div class="photo-badge"><span class="en">Full Stack Developer</span><span class="ar">مطور ويب متكامل</span></div>
+      <div class="photo-badge"><span class="en">Travel &amp; Tourism Expert</span><span class="ar">خبير سياحة وسفر</span></div>
+      <div class="photo-badge"><span class="en">Payroll &amp; Finance</span><span class="ar">متخصص مالي</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTER -->
+<div class="counter-strip">
+  <div class="counter-cell"><span class="counter-num" data-target="15">0</span><div class="counter-label"><span class="en">Years Tourism</span><span class="ar">سنة سياحة</span></div></div>
+  <div class="counter-cell"><span class="counter-num" data-target="10">0</span><div class="counter-label"><span class="en">Years Finance</span><span class="ar">سنة مالية</span></div></div>
+  <div class="counter-cell"><span class="counter-num" data-target="18">0</span><div class="counter-label"><span class="en">Certificates</span><span class="ar">شهادة</span></div></div>
+  <div class="counter-cell"><span class="counter-num" data-target="4">0</span><div class="counter-label"><span class="en">Projects</span><span class="ar">مشروع</span></div></div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">01 — <span class="en">Biography</span><span class="ar">السيرة</span></div>
+      <h2 class="section-title"><span class="en">Three Industries.<br><em>One Visionary.</em></span><span class="ar">ثلاثة قطاعات.<br><em>رؤية واحدة.</em></span></h2>
+    </div>
+    <div class="bio-grid">
+      <div class="bio-text reveal d1">
+        <p><span class="en">I am <strong>Osman Ahmed Omar</strong>, based in <strong>Doha, Qatar</strong>, with over two decades of expertise spanning Tourism, Finance, and Technology.</span><span class="ar">أنا <strong>عثمان أحمد عمر</strong>، مقيم في <strong>الدوحة، قطر</strong>، مع أكثر من عقدين من الخبرة في السياحة والمالية والتكنولوجيا.</span></p>
+        <p><span class="en">My career began in <strong>Travel &amp; Tourism</strong>, where 15 years shaped deep understanding of global operations and airline systems (Amadeus, Galileo, Sabre).</span><span class="ar">بدأت مسيرتي في <strong>السياحة والسفر</strong>، حيث شكّلت 15 عاماً فهماً عميقاً للعمليات العالمية وأنظمة الطيران (أماديوس، جاليليو، سابر).</span></p>
+        <p><span class="en">A decade in <strong>Accounting &amp; Payroll</strong> sharpened my analytical precision at the highest level.</span><span class="ar">عشر سنوات في <strong>المحاسبة وإدارة الرواتب</strong> صقلت دقتي التحليلية على أعلى مستوى.</span></p>
+        <p><span class="en">Today I channel all of this into <strong>Full Stack Web Development</strong> — certified by <strong>University of London</strong> and <strong>University of Pennsylvania</strong>.</span><span class="ar">اليوم أوظف كل هذا في <strong>تطوير الويب الشامل</strong> — معتمد من <strong>جامعة لندن</strong> و<strong>جامعة بنسلفانيا</strong>.</span></p>
+      </div>
+      <div class="bio-stats reveal d2">
+        <div class="stat-card"><div><div class="stat-num">15</div><div class="stat-yrs"><span class="en">Years</span><span class="ar">سنة</span></div></div><div><div class="stat-title"><span class="en">Travel &amp; Tourism</span><span class="ar">السياحة والسفر</span></div><div class="stat-sub">International · Middle East</div></div></div>
+        <div class="stat-card"><div><div class="stat-num">10</div><div class="stat-yrs"><span class="en">Years</span><span class="ar">سنة</span></div></div><div><div class="stat-title"><span class="en">Accounting &amp; Payroll</span><span class="ar">المحاسبة والرواتب</span></div><div class="stat-sub">Financial Mgmt · ERP</div></div></div>
+        <div class="stat-card"><div><div class="stat-num">3</div><div class="stat-yrs"><span class="en">Years</span><span class="ar">سنة</span></div></div><div><div class="stat-title"><span class="en">Full Stack Development</span><span class="ar">تطوير الويب</span></div><div class="stat-sub">Healthcare · Finance · Travel</div></div></div>
+        <div class="stat-card"><div><div class="stat-num">18</div><div class="stat-yrs"><span class="en">Certs</span><span class="ar">شهادة</span></div></div><div><div class="stat-title"><span class="en">Certifications</span><span class="ar">الشهادات المهنية</span></div><div class="stat-sub">Univ. London · Penn · PMP</div></div></div>
+      </div>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item"><img src="images/img-002.png" style="object-position:20% top;"><div class="gallery-caption"><span class="en">Accounting</span><span class="ar">محاسبة</span></div></div>
+      <div class="gallery-item"><img src="images/img-003.png" style="object-position:50% top;"><div class="gallery-caption"><span class="en">Tourism</span><span class="ar">سياحة</span></div></div>
+      <div class="gallery-item"><img src="images/img-004.png" style="object-position:center 20%;"><div class="gallery-caption"><span class="en">Leadership</span><span class="ar">قيادة</span></div></div>
+      <div class="gallery-item"><img src="images/img-005.png" style="object-position:center 15%;"><div class="gallery-caption"><span class="en">Management</span><span class="ar">إدارة</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPANIES -->
+<section class="section">
+  <div class="container">
+    <div class="companies-section">
+      <div class="companies-label"><span class="en">⟡ Companies & Organizations I've Worked With ⟡</span><span class="ar">⟡ الشركات والمؤسسات التي عملت معها ⟡</span></div>
+      <div class="companies-grid">
+        <div class="company-card"><div class="company-icon">🏛️</div><div class="company-name">Ministry of Defence</div><div class="company-role"><span class="en">Ticketing Accountant</span><span class="ar">محاسب تذاكر</span></div><div class="company-years">2017 – Present · Qatar</div></div>
+        <div class="company-card"><div class="company-icon">✈️</div><div class="company-name">Confident Travel WLL</div><div class="company-role"><span class="en">Sales Supervisor</span><span class="ar">مشرف مبيعات</span></div><div class="company-years">2011 – Present · Qatar</div></div>
+        <div class="company-card"><div class="company-icon">🌍</div><div class="company-name">Althuraya Travel</div><div class="company-role"><span class="en">Counter Supervisor</span><span class="ar">مشرف كاونتر</span></div><div class="company-years">2009 – 2010 · Qatar</div></div>
+        <div class="company-card"><div class="company-icon">🏥</div><div class="company-name">Afgoi Hospital</div><div class="company-role"><span class="en">AHMS Developer</span><span class="ar">مطور نظام المستشفى</span></div><div class="company-years">2024 – Present · Somalia</div></div>
+        <div class="company-card"><div class="company-icon">🚖</div><div class="company-name">Manchester United Transport</div><div class="company-role"><span class="en">Admin In-Charge</span><span class="ar">مسؤول إداري</span></div><div class="company-years">2008 · Qatar</div></div>
+        <div class="company-card"><div class="company-icon">🎫</div><div class="company-name">Al-Faqe Travels</div><div class="company-role"><span class="en">Reservation Staff</span><span class="ar">موظف حجوزات</span></div><div class="company-years">2006 – 2007 · Somalia</div></div>
+        <div class="company-card"><div class="company-icon">🌐</div><div class="company-name">Icon Tourism & Travels</div><div class="company-role"><span class="en">Executive Reservation</span><span class="ar">تنفيذي حجوزات</span></div><div class="company-years">2003 – 2004 · Somalia</div></div>
+        <div class="company-card"><div class="company-icon">💻</div><div class="company-name">IT-Shop Hypermarket</div><div class="company-role"><span class="en">Sales Executive</span><span class="ar">مندوب مبيعات</span></div><div class="company-years">2004 · Somalia</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section" id="education">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">02 — <span class="en">Education</span><span class="ar">التعليم</span></div>
+      <h2 class="section-title"><span class="en">Academic & Professional<br><em>Qualifications</em></span><span class="ar">المؤهلات الأكاديمية<br><em>والمهنية</em></span></h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card reveal d1"><div class="edu-icon">🎓</div><div><div class="edu-degree"><span class="en">Bachelor of Business Administration</span><span class="ar">بكالوريوس إدارة الأعمال</span></div><div class="edu-field">BBA — Indian Ocean University (2007)</div><div class="edu-desc"><span class="en">Business strategy, management, economics, marketing.</span><span class="ar">استراتيجية الأعمال والإدارة والاقتصاد والتسويق.</span></div></div></div>
+      <div class="edu-card reveal d2"><div class="edu-icon">🏥</div><div><div class="edu-degree"><span class="en">Master of Business Administration</span><span class="ar">ماجستير إدارة المستشفيات</span></div><div class="edu-field">MBA — Hospital Management</div><div class="edu-desc"><span class="en">Healthcare management, operations, health policy, leadership.</span><span class="ar">إدارة الرعاية الصحية والعمليات والسياسة الصحية.</span></div></div></div>
+      <div class="edu-card reveal d1"><div class="edu-icon">🏛️</div><div><div class="edu-degree"><span class="en">University of London · Coursera</span><span class="ar">جامعة لندن · كورسيرا</span></div><div class="edu-field">HTML & CSS — Web Development (Jan 2026)</div><div class="edu-desc"><span class="en">Certified courses from Goldsmiths, University of London.</span><span class="ar">دورات معتمدة من جامعة لندن (غولدسميث).</span></div><div class="edu-tags"><span class="edu-tag">HTML5</span><span class="edu-tag">CSS3</span><span class="edu-tag">Univ. London</span></div></div></div>
+      <div class="edu-card reveal d2"><div class="edu-icon">📋</div><div><div class="edu-degree"><span class="en">PMP Preparation · 35 PDUs</span><span class="ar">تحضير PMP · 35 ساعة</span></div><div class="edu-field">Project Management Professional — Jan 2026</div><div class="edu-desc"><span class="en">35 Contact Hours by David McLachlan PMP, CAPM, ACP.</span><span class="ar">35 ساعة تدريبية بواسطة David McLachlan PMP.</span></div></div></div>
+      <div class="edu-card reveal d1"><div class="edu-icon">✈️</div><div><div class="edu-degree"><span class="en">AITA Certification</span><span class="ar">شهادة AITA</span></div><div class="edu-field">Travel & Tourism Management</div><div class="edu-desc"><span class="en">Global travel operations, destination management, ticketing.</span><span class="ar">عمليات السفر الدولية وإدارة الوجهات والتذاكر.</span></div></div></div>
+      <div class="edu-card reveal d2"><div class="edu-icon">💻</div><div><div class="edu-degree"><span class="en">GDS Certifications</span><span class="ar">شهادات أنظمة GDS</span></div><div class="edu-field">Amadeus (2010) · Galileo (2010) · Sabre (2009)</div><div class="edu-desc"><span class="en">All three leading Global Distribution Systems.</span><span class="ar">أنظمة التوزيع العالمية الثلاثة الرائدة.</span></div><div class="edu-tags"><span class="edu-tag">Amadeus</span><span class="edu-tag">Galileo</span><span class="edu-tag">Sabre</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section skills-section" id="skills">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">03 — <span class="en">Skills</span><span class="ar">المهارات</span></div>
+      <h2 class="section-title"><span class="en">Tools & <em>Expertise</em></span><span class="ar">الأدوات و<em>الخبرات</em></span></h2>
+    </div>
+    <div class="skills-bars" id="skillsBars">
+      <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">HTML5 / CSS3</span><span class="skill-bar-pct">95%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div></div>
+      <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">JavaScript / React.js</span><span class="skill-bar-pct">78%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div></div>
+      <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Node.js / REST APIs</span><span class="skill-bar-pct">72%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="72"></div></div></div>
+      <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Amadeus / Galileo / Sabre</span><span class="skill-bar-pct">98%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="98"></div></div></div>
+      <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Payroll & ERP Systems</span><span class="skill-bar-pct">96%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="96"></div></div></div>
+      <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Financial Management</span><span class="skill-bar-pct">93%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="93"></div></div></div>
+      <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Hospital Management</span><span class="skill-bar-pct">88%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div></div>
+      <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Leadership & Team Mgmt</span><span class="skill-bar-pct">90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div></div>
+      <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Project Management</span><span class="skill-bar-pct">85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div></div>
+      <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Arabic / English / Somali</span><span class="skill-bar-pct">100%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="100"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">04 — <span class="en">Experience</span><span class="ar">الخبرة</span></div>
+      <h2 class="section-title"><span class="en">A Career Built on<br><em>Real Expertise</em></span><span class="ar">مسيرة مبنية على<br><em>خبرة حقيقية</em></span></h2>
+    </div>
+    <div class="exp-grid">
+      <div class="exp-card reveal d1"><div><div class="exp-years">15</div><div class="exp-yrs-label"><span class="en">Years</span><span class="ar">سنة</span></div></div><div><div class="exp-title"><span class="en">Travel & Tourism Specialist</span><span class="ar">متخصص سياحة وسفر</span></div><div class="exp-desc"><span class="en">Fifteen years in global travel — tour operations, airline partnerships, MOD Qatar ticketing. AITA certified. Amadeus, Galileo, Sabre.</span><span class="ar">خمسة عشر عاماً في السياحة العالمية — عمليات السفر، وزارة الدفاع قطر. معتمد AITA. أماديوس وجاليليو وسابر.</span></div><div class="exp-tags"><span class="exp-tag">Tour Operations</span><span class="exp-tag">Amadeus</span><span class="exp-tag">Galileo</span><span class="exp-tag">Sabre</span><span class="exp-tag">MOD Qatar</span></div></div></div>
+      <div class="exp-card reveal d2"><div><div class="exp-years">10</div><div class="exp-yrs-label"><span class="en">Years</span><span class="ar">سنة</span></div></div><div><div class="exp-title"><span class="en">Accountant & Payroll Manager</span><span class="ar">محاسب ومدير رواتب</span></div><div class="exp-desc"><span class="en">Full-cycle payroll, financial reporting, tax compliance, and corporate budgeting across Qatar's corporate sector.</span><span class="ar">رواتب كاملة، تقارير مالية، امتثال ضريبي وميزانيات الشركات في القطاع الخاص في قطر.</span></div><div class="exp-tags"><span class="exp-tag">Payroll</span><span class="exp-tag">Financial Reporting</span><span class="exp-tag">ERP</span><span class="exp-tag">Tax</span></div></div></div>
+      <div class="exp-card reveal d3"><div><div class="exp-years">3</div><div class="exp-yrs-label"><span class="en">Years</span><span class="ar">سنة</span></div></div><div><div class="exp-title"><span class="en">Full Stack Web Developer</span><span class="ar">مطور ويب متكامل</span></div><div class="exp-desc"><span class="en">Building AHMS hospital system, travel platforms, payroll systems, and Somali apps. Certified by University of London.</span><span class="ar">بناء نظام AHMS للمستشفيات، منصات السفر، أنظمة الرواتب. معتمد من جامعة لندن.</span></div><div class="exp-tags"><span class="exp-tag">HTML/CSS</span><span class="exp-tag">JavaScript</span><span class="exp-tag">React</span><span class="exp-tag">Node.js</span><span class="exp-tag">Healthcare IT</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">05 — <span class="en">Portfolio</span><span class="ar">المشاريع</span></div>
+      <h2 class="section-title"><span class="en">Real-World <em>Projects</em></span><span class="ar">مشاريع <em>حقيقية</em></span></h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal d1">
+        <div class="project-top">
+          <div class="project-header"><div class="project-icon-wrap">🏥</div><span class="proj-badge b-dev"><span class="en">In Development</span><span class="ar">قيد التطوير</span></span></div>
+          <div class="project-sub">AHMS</div>
+          <div class="project-title"><span class="en">Afgoi Hospital Management System</span><span class="ar">نظام إدارة مستشفى أفغوي</span></div>
+          <div class="project-desc"><span class="en">Comprehensive hospital system — patient records, appointments, pharmacy, billing, and medical reporting — built on real MBA hospital management expertise.</span><span class="ar">نظام مستشفى شامل — سجلات المرضى، المواعيد، الصيدلية، الفواتير، والتقارير الطبية — مبني على خبرة حقيقية في إدارة المستشفيات.</span></div>
+        </div>
+        <div class="project-bottom">
+          <div class="project-tags"><span class="project-tag">React</span><span class="project-tag">Node.js</span><span class="project-tag">Healthcare IT</span><span class="project-tag">Somalia</span></div>
+          <div class="prog-wrap"><div class="prog-label"><span class="en">Progress</span><span class="ar">التقدم</span><span>65%</span></div><div class="prog-track"><div class="prog-fill" data-width="65"></div></div></div>
+        </div>
+      </div>
+      <div class="project-card reveal d2">
+        <div class="project-top">
+          <div class="project-header"><div class="project-icon-wrap">⭐</div><span class="proj-badge b-dev"><span class="en">In Development</span><span class="ar">قيد التطوير</span></span></div>
+          <div class="project-sub">Cilmiga Xiddigaha</div>
+          <div class="project-title"><span class="en">Somali Astrology App</span><span class="ar">تطبيق علم النجوم الصومالي</span></div>
+          <div class="project-desc"><span class="en">The first Somali-language astrology app — combining traditional Somali star knowledge with modern mobile development. Targeting the global Somali diaspora.</span><span class="ar">أول تطبيق فلك باللغة الصومالية — يجمع بين علم النجوم الصومالي التقليدي والتطوير الحديث للمغتربين الصوماليين.</span></div>
+        </div>
+        <div class="project-bottom">
+          <div class="project-tags"><span class="project-tag">React</span><span class="project-tag">Mobile</span><span class="project-tag">Somali</span><span class="project-tag">Unique</span></div>
+          <div class="prog-wrap"><div class="prog-label"><span class="en">Progress</span><span class="ar">التقدم</span><span>40%</span></div><div class="prog-track"><div class="prog-fill" data-width="40"></div></div></div>
+        </div>
+      </div>
+      <div class="project-card reveal d3">
+        <div class="project-top">
+          <div class="project-header"><div class="project-icon-wrap">💰</div><span class="proj-badge b-dev"><span class="en">In Development</span><span class="ar">قيد التطوير</span></span></div>
+          <div class="project-sub">PayrollPro GCC</div>
+          <div class="project-title"><span class="en">Payroll Management System</span><span class="ar">نظام إدارة الرواتب</span></div>
+          <div class="project-desc"><span class="en">Enterprise payroll platform for GCC companies — automated salary calculations, WPS compliance, leave management, and financial dashboards.</span><span class="ar">منصة رواتب مؤسسية لشركات الخليج — حسابات تلقائية، امتثال WPS، إدارة الإجازات ولوحات البيانات المالية.</span></div>
+        </div>
+        <div class="project-bottom">
+          <div class="project-tags"><span class="project-tag">JavaScript</span><span class="project-tag">Node.js</span><span class="project-tag">GCC</span><span class="project-tag">WPS</span></div>
+          <div class="prog-wrap"><div class="prog-label"><span class="en">Progress</span><span class="ar">التقدم</span><span>50%</span></div><div class="prog-track"><div class="prog-fill" data-width="50"></div></div></div>
+        </div>
+      </div>
+      <div class="project-card reveal d1">
+        <div class="project-top">
+          <div class="project-header"><div class="project-icon-wrap">✈️</div><span class="proj-badge b-live"><span class="en">● Live</span><span class="ar">● مباشر</span></span></div>
+          <div class="project-sub">TravelExperts15</div>
+          <div class="project-title"><span class="en">Travel Agency Platform</span><span class="ar">منصة وكالة السفر</span></div>
+          <div class="project-desc"><span class="en">Professional travel platform built on 15 years of industry experience — flights, hotels, tours, airport transfers with GDS integration.</span><span class="ar">منصة سفر مهنية مبنية على 15 عاماً من الخبرة — رحلات وفنادق وجولات وتحويلات المطار مع تكامل GDS.</span></div>
+        </div>
+        <div class="project-bottom">
+          <div class="project-tags"><span class="project-tag">HTML/CSS</span><span class="project-tag">JavaScript</span><span class="project-tag">GDS API</span><span class="project-tag">Qatar</span></div>
+          <div class="prog-wrap"><div class="prog-label"><span class="en">Completion</span><span class="ar">اكتمال</span><span>100%</span></div><div class="prog-track"><div class="prog-fill" data-width="100"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section class="section" id="certificates">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">06 — <span class="en">Certificates</span><span class="ar">الشهادات</span></div>
+      <h2 class="section-title"><span class="en">18 Professional <em>Certifications</em></span><span class="ar">18 <em>شهادة مهنية</em></span></h2>
+    </div>
+    <p class="certs-intro reveal"><span class="en">Click any certificate to view · Navigate with ← → arrows</span><span class="ar">اضغط على أي شهادة للعرض · التنقل بالأسهم</span></p>
+    <div class="certs-grid reveal"><div class="cert-card" onclick="openLightbox(0)"><div class="cert-thumb"><img src="images/img-006.jpg" alt="CSS: Web Page Layout" loading="lazy"><div class="cert-badge">★</div><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">CSS: Web Page Layout</div><div class="cert-date">Jan 2026 · University of London</div></div></div><div class="cert-card" onclick="openLightbox(1)"><div class="cert-thumb"><img src="images/img-007.jpg" alt="HTML: How to Build a Website" loading="lazy"><div class="cert-badge">★</div><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">HTML: How to Build a Website</div><div class="cert-date">Jan 2026 · University of London</div></div></div><div class="cert-card" onclick="openLightbox(2)"><div class="cert-thumb"><img src="images/img-008.jpg" alt="PMP Preparation · 35 PDUs" loading="lazy"><div class="cert-badge">★</div><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">PMP Preparation · 35 PDUs</div><div class="cert-date">Jan 2026</div></div></div><div class="cert-card" onclick="openLightbox(3)"><div class="cert-thumb"><img src="images/img-009.jpg" alt="English for Career Development" loading="lazy"><div class="cert-badge">★</div><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">English for Career Development</div><div class="cert-date">Mar 2021 · University of Pennsylvania</div></div></div><div class="cert-card" onclick="openLightbox(4)"><div class="cert-thumb"><img src="images/img-010.png" alt="Leadership & Team Management" loading="lazy"><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">Leadership & Team Management</div><div class="cert-date">May 2023</div></div></div><div class="cert-card" onclick="openLightbox(5)"><div class="cert-thumb"><img src="images/img-011.png" alt="Business Planning & Entrepreneurship" loading="lazy"><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">Business Planning & Entrepreneurship</div><div class="cert-date">Apr 2024</div></div></div><div class="cert-card" onclick="openLightbox(6)"><div class="cert-thumb"><img src="images/img-012.png" alt="Hospitality Management" loading="lazy"><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">Hospitality Management</div><div class="cert-date">Aug 2023</div></div></div><div class="cert-card" onclick="openLightbox(7)"><div class="cert-thumb"><img src="images/img-013.png" alt="Customer Experience & Service Excellence" loading="lazy"><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">Customer Experience & Service Excellence</div><div class="cert-date">Sep 2023</div></div></div><div class="cert-card" onclick="openLightbox(8)"><div class="cert-thumb"><img src="images/img-014.png" alt="Customer Experience & Service Excellence" loading="lazy"><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">Customer Experience & Service Excellence</div><div class="cert-date">Mar 2023</div></div></div><div class="cert-card" onclick="openLightbox(9)"><div class="cert-thumb"><img src="images/img-015.png" alt="Leadership & Team Management" loading="lazy"><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">Leadership & Team Management</div><div class="cert-date">Jun 2023</div></div></div><div class="cert-card" onclick="openLightbox(10)"><div class="cert-thumb"><img src="images/img-016.png" alt="Financial Management for Startups" loading="lazy"><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">Financial Management for Startups</div><div class="cert-date">Mar-Apr 2023</div></div></div><div class="cert-card" onclick="openLightbox(11)"><div class="cert-thumb"><img src="images/img-017.png" alt="Marketing & Branding Strategy" loading="lazy"><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">Marketing & Branding Strategy</div><div class="cert-date">Feb-Mar 2023</div></div></div><div class="cert-card" onclick="openLightbox(12)"><div class="cert-thumb"><img src="images/img-018.png" alt="Business Planning & Entrepreneurship" loading="lazy"><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">Business Planning & Entrepreneurship</div><div class="cert-date">Apr 2023</div></div></div><div class="cert-card" onclick="openLightbox(13)"><div class="cert-thumb"><img src="images/img-019.png" alt="Leadership Development & Cultural Mgmt" loading="lazy"><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">Leadership Development & Cultural Mgmt</div><div class="cert-date">Jul 2023</div></div></div><div class="cert-card" onclick="openLightbox(14)"><div class="cert-thumb"><img src="images/img-020.png" alt="Innovation & Creative Problem Solving" loading="lazy"><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">Innovation & Creative Problem Solving</div><div class="cert-date">Oct 2022</div></div></div><div class="cert-card" onclick="openLightbox(15)"><div class="cert-thumb"><img src="images/img-021.png" alt="Project Management" loading="lazy"><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">Project Management</div><div class="cert-date">May 2012</div></div></div><div class="cert-card" onclick="openLightbox(16)"><div class="cert-thumb"><img src="images/img-022.png" alt="Business Workshops: Entrepreneurship" loading="lazy"><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">Business Workshops: Entrepreneurship</div><div class="cert-date">Oct 2015</div></div></div><div class="cert-card" onclick="openLightbox(17)"><div class="cert-thumb"><img src="images/img-023.png" alt="Hospitality & Customer Service Excellence" loading="lazy"><div class="cert-overlay"><span>&#8599; View</span></div></div><div class="cert-info"><div class="cert-title">Hospitality & Customer Service Excellence</div><div class="cert-date">Mar 2010</div></div></div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">07 — <span class="en">Testimonials</span><span class="ar">آراء العملاء</span></div>
+      <h2 class="section-title"><span class="en">What People <em>Say</em></span><span class="ar">ماذا يقول <em>الناس</em></span></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal d1"><div class="stars">★★★★★</div><div class="quote-mark">"</div><div class="testimonial-text"><span class="en">Osman brings something truly rare — he understands the travel business from the inside. Every feature makes real business sense.</span><span class="ar">عثمان يجلب شيئاً نادراً — يفهم أعمال السفر من الداخل. كل ميزة يبنيها منطقية تجارياً.</span></div><div class="testimonial-author"><div class="author-avatar">AK</div><div><div class="author-name">Ahmed Al-Kuwari</div><div class="author-role">Travel Agency Director · Qatar</div></div></div></div>
+      <div class="testimonial-card reveal d2"><div class="stars">★★★★★</div><div class="quote-mark">"</div><div class="testimonial-text"><span class="en">The payroll system saved our HR team 30 hours monthly. His accounting background means he built exactly what finance professionals need.</span><span class="ar">نظام الرواتب وفر 30 ساعة شهرياً. خلفيته المحاسبية تعني أنه بنى ما يحتاجه المتخصصون الماليون بالضبط.</span></div><div class="testimonial-author"><div class="author-avatar">FM</div><div><div class="author-name">Fatima Al-Mansouri</div><div class="author-role">HR & Finance Manager · Qatar</div></div></div></div>
+      <div class="testimonial-card reveal d3"><div class="stars">★★★★★</div><div class="quote-mark">"</div><div class="testimonial-text"><span class="en">The AHMS system will transform patient care at Afgoi Hospital. His MBA in hospital management combined with coding is truly unique.</span><span class="ar">نظام AHMS سيحول رعاية المرضى في مستشفى أفغوي. ماجستيره في إدارة المستشفيات مع البرمجة فريد حقاً.</span></div><div class="testimonial-author"><div class="author-avatar">MA</div><div><div class="author-name">Dr. Mohamed Abdirahman</div><div class="author-role">Medical Director · Afgoi Hospital</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CV DOWNLOAD -->
+<section id="cv-download">
+  <div class="cv-section">
+    <div class="cv-left">
+      <div class="section-tag" style="margin-bottom:12px;">08 — <span class="en">Resume</span><span class="ar">السيرة الذاتية</span></div>
+      <h2><span class="en">Download My <em>CV</em></span><span class="ar">تحميل <em>سيرتي الذاتية</em></span></h2>
+      <p><span class="en">Full resume with Education, Experience, Skills, and all 18 Certifications.</span><span class="ar">سيرة ذاتية كاملة مع التعليم والخبرة والمهارات و18 شهادة.</span></p>
+    </div>
+    <div class="cv-btns">
+      <a href="data:application/pdf;base64,JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNCAwIFIgL0Y0IDUgMCBSCj4+CmVuZG9iagoyIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMSAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjMgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EtQm9sZCAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjIgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago0IDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLU9ibGlxdWUgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YzIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNSAwIG9iago8PAovQmFzZUZvbnQgL1phcGZEaW5nYmF0cyAvTmFtZSAvRjQgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago2IDAgb2JqCjw8Ci9Db250ZW50cyAxMCAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yNzU2IDg0MS44ODk4IF0gL1BhcmVudCA5IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9QYWdlTW9kZSAvVXNlTm9uZSAvUGFnZXMgOSAwIFIgL1R5cGUgL0NhdGFsb2cKPj4KZW5kb2JqCjggMCBvYmoKPDwKL0F1dGhvciAoXChhbm9ueW1vdXNcKSkgL0NyZWF0aW9uRGF0ZSAoRDoyMDI2MDMyNzAxMzk1MCswMCcwMCcpIC9DcmVhdG9yIChcKHVuc3BlY2lmaWVkXCkpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDI2MDMyNzAxMzk1MCswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0IChcKHVuc3BlY2lmaWVkXCkpIC9UaXRsZSAoXChhbm9ueW1vdXNcKSkgL1RyYXBwZWQgL0ZhbHNlCj4+CmVuZG9iago5IDAgb2JqCjw8Ci9Db3VudCAxIC9LaWRzIFsgNiAwIFIgXSAvVHlwZSAvUGFnZXMKPj4KZW5kb2JqCjEwIDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDM1NzIKPj4Kc3RyZWFtCkdiIVNvPyFIJSooO0JORVhLK08sRGJNckNxPU5zRmRhaTs0LmVOQDxHVmInZGRZPEUlNjBqIUZPJEBELCslLURQJ1xUQ2Q6REgyT1pmWVAjbW9oTFlkLiltaWhxZWUiR1FkS2wnLUl1WTJhQGVySjVIaWdVT3NXbixlcWc0MXRzQEMkK0ByNGEjPEVBcilELG8xVDpiTmMzVWBvclxZXk8pQSNbUzZAQCFyXnNuM1ExV25WZWhvI1M2cl0mOVRPRWFEUVgwLScyLnMnXFRLT2JgLnEpM19XUGVzMl8xRTp1SjxKIi5CJWFoailwLGhIYXE6UC8tX0Y7NFxxJWNIV0AuXTNvcV9TNCZhLz9BRjszcnNzT2RiQ0ppNUNiUSc1RDQhZVFvZ0EpQyUoWkw1Tz9OaUZlMGdKN19bNTBWc1RQSEc5XmUob0gqYyVdQTtlIk9VSm04ZEhsYmlQUTY8RlxPZjpkcE9sQDtaZislZ3QhbjlwYFI1Izs3KS9YQS1Va14zKE9DTGBiQV5VYkthRHBdXz1jN0gzL2hCaVY+VipQTTNXRFVGQy0hQjplXCheZEZHZTxeP0o2czFdUmYySlM+QVw9Y05cTGxlQWYoRzdvbDpxMEc9ZVI+bzlXdClYPzIrQTxhUEB0QEBgO2kzT1ImcWtySV1nKCtfVEVoRVROay4hKkx0WTsjZExLRWhWPWJAWFZfYmRnIVpQPyo6bWxYVkNhRCJfZWROIz03KG9cOjFkcjBXMFs1YDsnbjFmaDdTQkQ7az4+LHE+Ok50Rk87PSwnMj9Lcy46JF8uYDc/ZTVHRSNtYmRARzhBMy5gUUhuYUtvTjJrU0M2MzFCQT5vOmpvQTNMRllzVkd1aShFaEs7XCNrQ3UjKnUyLGltZEJNTTdgJTklRSZjWjAvNUUpdSoxOlJvTm8zMUElNnA6I050LyRza0JPKkBxKFo5WUxlZ2JMWDIzbzpxc0pFSkcmY0MnSlVET2lsYFNkJlM8T2Q0bjRtRSMhTnVQU2xDKy9NaihEI2AqWG1tS1xmMSNLNVZuPUM3PnU8S0tjPS0wKlJPKClLJSoiKXFoYUxeIixvVjs0ajtzTTdPM2c0S2ZqbEk1RmhqdXJlLFg3aXJsKHE1WUpXXDZTU2U9IWgsX2VpKklCTDhTTEFMNlhMY25TZWl1cWUuM3BPRmhtSistalxQQl9fRys3L1hnJlpELmIlZFs7cm5uM1IqUEU7ZFM/SzNZYmU6PCpJRHBmRDYtVltqIlRGb05rL0JNbydISmp1OFBKWyxAdFdFUmFITiI9TStHZV9CZDJfaiZVXDZsNzlGXyg/MUc/OGxPVlM3J1I0X0coYF4kJzBkclgzNlM8YWI6NiRLPlZzY2snNGQnNl49KFknSmJCUDNuZjFFa0gyU2JRVUNxP2ppOVtqVy9fLGU2PW8oYkJhISNxNThdInBWQlE8RCQnKm9fOSpzbC44SWljcU1CQl5mVEQwazgvcj4xNkhuYHQhamJrbCVdPmgjMFVBTFFLcFtZRDRJXjcnTyUqLjIzQixIczEsZEY9VThmZm1YPiJjUDNNS21UWjlOTDI7MWo7TlNcS2lcMk9yLE1tN2VGWklgQGBJNmpYUW11UiI9MCZJMjMkbDg1Uj45a3MxZTllPydyYlByKTxzUUwhUiFvL2cvWGA2TyQoRT5rWiJCNzNzSCFEU11YZiEyVC8pKlxhcCNRLVVvRS8vYnVvNkc/WmRdOlgkb1AyczM6XS1MaF4iQXNQQjNZZjNWOnJEUyVIbCxAYTs6XG4vUCFQQSVTK2tgUzBhWTRlPyszNWBgZlVoJ2JuKVZAXmZkcSNHSkxXQzFfWHVOMD1WMm5NNlZDXV9mWGIpQXBrOFhmSm9NMFAhcUxKLEZucT1PP11UVillQXE3Y2ZUZVZvInE/NFElWThKZjM6dE5KdTsxV0puX3QsIVpdLjROQWc7JT5yOFVQKUBwPjtlL3BHV1VvR2xmTClFa3EqXWcqYm1NNVRfc25wQk9iXDtwVVVyZE0tVVFyWTAsP1liTyluUzlLI2g5PCRTVTxBK2ZjIS4uTTY0TUohZ2V0QitcaD1Va1lYQ1BiXE5bOD1DbkZvKXRpXmNMTStbbzdZNydjVj4qSHMlUFUzIitMXzxSKFgkREhPbUkkNFAqNm89R2ltWDRAWis6VTNJYHVkXHJtYksmI2Q0WSs1K3JSQjlUQjtfVis5ZTExMWwkSDcuUWtdMyolPVhPaENSOnRLc19AdXBOSSZVUW4lcVlDTl9CJSRmTjRvYE1zIWF1TVg8MUNcNk8jUWIpI05tQTw+YiVQWmc3UFpRTk0sVUZkKTppMS5icVUjUiI0VlYwYjQpLTNdK0phJU1kSzZXTnNTOzhoPyNQWjhlZElQSUtqNzNJRWwzXCdtOktsWSI0J1crZjNsa0hrZG9gPjVGLmMiKkw0QHE/aVFJXmhJTDErVGgxQCFOSGYoIjNjVVVUVUFEMkpcRWZNVC4rL3EvbjtIXiksaGgiVWQ7KGg2a2chQ0pTJzJtTWlBOXFwJW0sJSktXz9kYyY5PClGVmU3J1xTMCxvXE1JUVFISVIqP2IkZ21tPUUrVWUrOSpYSkY4MWlcWCVRNFNAa0g0XTI1MjZJckZeXmtnTy9uWmMxPTtCTzhfIXRjdTBMQVgoSm4wKlVqJl5zWjhwIjcjW0NfaGJON19OUGIzI3NXPnMka1hzcWJJRiMzY0xaajc8UW1GKlVsXGZQWVs8LkpqdVNxWFckJVAyUjFYYzJeQElQXk9yNiVuaV9cVlQrL1JEPC8tPyNPPycxWzNGdW9lWEA7cSpiWiUpMUU9YVomZE9hVCtYLlI+Qzs0OyNgY1BmM2BDJWNeR15SVEM4QixCYXNIaCM4Y1tyOm1PUVk9bWVeZz5YPD4pbUVdQjZMXTxWOVc8RGolYHE7OCcsI0QjbENIbDJIWk1RYUMjUzJkUDQ2MEw5NnBuTWxHYGpSU0FpOiMrITArQi82K2JMZmk1UmEqQio9U2FqbzdBUm5YQmQ2Sjc0RzYjWCYhUU9gbVRRQ0VoKi02JEpLJzdvTSdHXURdK0JkLyg2SUwuMmFZXmg1cVFxTiY+TUI8XVRpTmhnTmYoI1U7JDVASDU9LjA+UEdRJC9yO2k3RT1IbE1bQTNEPmNVPnJUcFdQTXA4VCJtKUhcMDBIP1NXaSUlOEA+OSFrZSw6JnBYKDIwRCMkYEBZUGdgL3BkWFxeYUJiPjY0ZD1cPT5Dc25lZ0o7L2VoVENTcUFkTi1mIzJCaXRjJ3BRNFZZV0VAWWBNPlknRmoiO18odDNiQTtfUF9CPnRtVDM/ZD0kI08jaz5RckRiKGhBLXRbPkpDSXRYbEtPIzwtSj10QE9DZ1EkYiVZUlcyVHMqVTFlcmU8L1BfWEZPYi5EJ3EmNEoyUmdWO1Y8bHFgQmVuaTtALj9kbCswTjs2RlxsXVVmZFgqMjE8VjY2IXFkbGolK05JXVdlTUVVZENOWFZWT0tbKkFMQTpcPm88UWBmJzxkNzlXPmM+MVNaa2FuZT9aWj5MRj5hRTs9ZyI/OitxJFs3YEdxM1A3ZGg5OSk/OzdMTGhlQ1hqO3BaLTBScURfNDE4aW4wOi1ZZEE/cCg4cUxDclpVUm4jY2pJOVRvPmAwbEhFOGFmb2AqcDldbU1GI0owLUVGZzRzXk8iOW1IaylKY2AnKm5Jcz1eREYnVTptc0ldXm1xI0hhTmZeTEY4LihEOyFUWmtAYU8iOUNmQilMbVI3UlhJPk5BMldhOCpVR3JPaUI2RWhvWmg8I0AnbSxRT1Zmb25CZzk9MVpRP3FhJG9HPyc2Z1JCQlg2LWBlNCZZckdANFdbPzZMZDhOR29iaSZMSEtpQE1Jcz1LdWNdUCpbTVE9Myg1cSdoSzxORjduTWJmLFUlKVoyRDR0LlEwVDxiUGgwVHRrY2tqODdOZWglZyJAY2RGR01jJEQoS0klO3RbMjk2IkchP247PE5UP2pdRCc7aUQ2cmRpZ3ImSUNnck81WU1RMnRiVE44MWUpY21XKUQwdDo5YE4uKEsmPEZGNjAzbmY/cDpaSjE9P1wsZFtoNSU0ST5fPztYX1ghNVFbT08nKks9ZldVPTdnc3FMYUMoJ1AxMnJeJSIuTE0rPy1YSmxkayNcNzJhZzsiQ3E+bnVrJltuOz80bHJRJTo9aDI4OHNMKzFoUy80LVZfKDhkRGZbLktCbUReL0ZgWk81cEVVNHQrWGUmPUgmIWRndHNdQy1LPm4rL05yVkwvS2QwYjtmQ0p0X046TW9rbzVPcipmPCpvZ2tIXS0rXzY8SEUoMFo7SkEucGtpSU8vPFZpWUA/YVZyZGRgI1JgcHM9ZywvM2E/PFZOQz1KajxVWEJeRGgnMVVqUFk7c2VBN181Lj4iLCprdVMnUl4/OGU5PjIqRXNaSmYodThlYDpfWy0qcEhvXUVIMlZrLkIja1U7Pk5sMygiZ2guPmhnX00vRDVDUjw7Z09IIlYjLUlkTjooJkpwajRjVWpBRzNta1V0c1UyZmBtR3M0T2ViZ2YuT0tsJEA+WUokc2A3bCInQ3BKL2hYc2gjJ2lPcj0uP0tMOTVeLGlEUnEtWEQxbTdxbjlLKG4+ZGs+YV5pKTxqQj9DZl07OCJbZVBFb0A/YFxqPnIrNltLYltiM0g0MjE9RGlZOV9WWUcvLkhdXkVDQC5sWiUvTWVoRl9SUFVbbiYoZC01KiJNclFgcEtqUn4+ZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgMTEKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMjIgMDAwMDAgbiAKMDAwMDAwMDIyOSAwMDAwMCBuIAowMDAwMDAwMzQxIDAwMDAwIG4gCjAwMDAwMDA0NTYgMDAwMDAgbiAKMDAwMDAwMDUzOSAwMDAwMCBuIAowMDAwMDAwNzQzIDAwMDAwIG4gCjAwMDAwMDA4MTEgMDAwMDAgbiAKMDAwMDAwMTA5MSAwMDAwMCBuIAowMDAwMDAxMTUwIDAwMDAwIG4gCnRyYWlsZXIKPDwKL0lEIApbPDZiMDIxY2M4YTRhYTcxNzYxNWJmMDVmMDhhNThmMjM3Pjw2YjAyMWNjOGE0YWE3MTc2MTViZjA1ZjA4YTU4ZjIzNz5dCiUgUmVwb3J0TGFiIGdlbmVyYXRlZCBQREYgZG9jdW1lbnQgLS0gZGlnZXN0IChvcGVuc291cmNlKQoKL0luZm8gOCAwIFIKL1Jvb3QgNyAwIFIKL1NpemUgMTEKPj4Kc3RhcnR4cmVmCjQ4MTQKJSVFT0YK" download="Osman_Ahmed_Omar_CV.pdf" class="btn-gold">⬇ <span class="en">Download CV</span><span class="ar">تحميل</span></a>
+      <a href="https://wa.me/97455189022" target="_blank" class="btn-green">💬 WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">09 — <span class="en">Contact</span><span class="ar">التواصل</span></div>
+      <h2 class="section-title"><span class="en">Let's Build<br><em>Something Great</em></span><span class="ar">لنبني<br><em>شيئاً عظيماً</em></span></h2>
+    </div>
+    <div class="contact-section">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <a href="https://wa.me/97455189022" target="_blank" class="contact-item wa-item"><div class="contact-icon wa">💬</div><div><div class="contact-label"><span class="en">WhatsApp (Fastest)</span><span class="ar">واتساب (الأسرع)</span></div><div class="contact-value">+974 5518 9022</div></div></a>
+          <a href="tel:+97455189022" class="contact-item"><div class="contact-icon">📞</div><div><div class="contact-label"><span class="en">Phone</span><span class="ar">هاتف</span></div><div class="contact-value">+974 5518 9022</div></div></a>
+          <a href="mailto:osman@osmanahmedomar.com" class="contact-item"><div class="contact-icon">✉️</div><div><div class="contact-label"><span class="en">Email</span><span class="ar">البريد</span></div><div class="contact-value">osman@osmanahmedomar.com</div></div></a>
+          <a href="#" class="contact-item"><div class="contact-icon">📍</div><div><div class="contact-label"><span class="en">Location</span><span class="ar">الموقع</span></div><div class="contact-value">Doha, Qatar · الدوحة، قطر</div></div></a>
+          <div class="domain-box"><div class="domain-icon">🌐</div><div><div class="domain-label"><span class="en">Website</span><span class="ar">الموقع</span></div><div class="domain-value">www.osmanahmedomar.com</div></div></div>
+        </div>
+        <div class="form-wrap reveal d2">
+          <div class="form-title"><span class="en">Send a Message</span><span class="ar">أرسل رسالة</span></div>
+          <div class="form-sub"><span class="en">Fill in the form — I'll reply within 24 hours</span><span class="ar">املأ النموذج — سأرد خلال 24 ساعة</span></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label"><span class="en">Name</span><span class="ar">الاسم</span></label><input class="form-input" id="cfName" type="text"></div>
+            <div class="form-group"><label class="form-label"><span class="en">Email</span><span class="ar">البريد</span></label><input class="form-input" id="cfEmail" type="email"></div>
+          </div>
+          <div class="form-group"><label class="form-label"><span class="en">Subject</span><span class="ar">الموضوع</span></label><input class="form-input" id="cfSubject" type="text"></div>
+          <div class="form-group"><label class="form-label"><span class="en">Message</span><span class="ar">الرسالة</span></label><textarea class="form-input form-textarea" id="cfMsg"></textarea></div>
+          <button class="form-submit" onclick="submitContact()"><span class="en">Send Message ✦</span><span class="ar">إرسال ✦</span></button>
+          <div class="form-success" id="cfSuccess"><span class="en">✓ Message sent! Osman will reply within 24 hours.</span><span class="ar">✓ تم الإرسال! سيرد عثمان خلال 24 ساعة.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Osman Ahmed Omar</div>
+  <div class="footer-copy">Full Stack Developer · Doha, Qatar · © 2026</div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLBOut(event)">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="closeLB()">✕</button>
+    <button class="lb-prev" onclick="lbPrev()">&#8592;</button>
+    <button class="lb-next" onclick="lbNext()">&#8594;</button>
+    <img class="lb-img" id="lbImg" src="" alt="">
+    <div class="lb-cap"><div class="lb-title-el" id="lbTitle"></div><div class="lb-date-el" id="lbDate"></div></div>
+    <div class="lb-count" id="lbCount"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

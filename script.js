@@ -1,0 +1,277 @@
+// ══════════════════════════════════════════════════
+// LANGUAGE SYSTEM — FIXED & CLEAN
+// ══════════════════════════════════════════════════
+var LANG = 'en';
+
+function setLang(lang) {
+  LANG = lang;
+  var body = document.body;
+  var html = document.getElementById('htmlRoot');
+
+  if (lang === 'ar') {
+    body.classList.add('ar');
+    html.setAttribute('dir', 'rtl');
+    html.setAttribute('lang', 'ar');
+    document.getElementById('chatInp').placeholder = 'اكتب رسالة...';
+  } else {
+    body.classList.remove('ar');
+    html.setAttribute('dir', 'ltr');
+    html.setAttribute('lang', 'en');
+    document.getElementById('chatInp').placeholder = 'Type a message...';
+  }
+
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  document.getElementById('btnAR').classList.toggle('active', lang === 'ar');
+}
+
+// Set initial chat placeholder
+document.getElementById('chatInp').placeholder = 'Type a message...';
+
+// ══════════════════════════════════════════════════
+// NAV SCROLL
+// ══════════════════════════════════════════════════
+window.addEventListener('scroll', function() {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  runCounters();
+  runBars();
+  runProjBars();
+});
+
+// ══════════════════════════════════════════════════
+// COUNTERS
+// ══════════════════════════════════════════════════
+var cRun = false;
+function runCounters() {
+  if (cRun) return;
+  var el = document.querySelector('.counter-strip');
+  if (el && el.getBoundingClientRect().top < window.innerHeight - 50) {
+    cRun = true;
+    document.querySelectorAll('.counter-num').forEach(function(num) {
+      var target = parseInt(num.getAttribute('data-target'));
+      var step = Math.ceil(target / 40), curr = 0;
+      var t = setInterval(function() {
+        curr += step;
+        if (curr >= target) { curr = target; clearInterval(t); }
+        num.textContent = curr;
+      }, 50);
+    });
+  }
+}
+runCounters();
+
+// ══════════════════════════════════════════════════
+// SKILL BARS
+// ══════════════════════════════════════════════════
+var bRun = false;
+function runBars() {
+  if (bRun) return;
+  var el = document.getElementById('skillsBars');
+  if (el && el.getBoundingClientRect().top < window.innerHeight - 80) {
+    bRun = true;
+    document.querySelectorAll('.skill-bar-fill').forEach(function(b) {
+      setTimeout(function() { b.style.width = b.getAttribute('data-width') + '%'; }, 150);
+    });
+  }
+}
+runBars();
+
+// ══════════════════════════════════════════════════
+// PROJECT PROGRESS BARS
+// ══════════════════════════════════════════════════
+var pRun = false;
+function runProjBars() {
+  if (pRun) return;
+  var el = document.querySelector('.projects-grid');
+  if (el && el.getBoundingClientRect().top < window.innerHeight - 80) {
+    pRun = true;
+    document.querySelectorAll('.prog-fill').forEach(function(b) {
+      setTimeout(function() { b.style.width = b.getAttribute('data-width') + '%'; }, 200);
+    });
+  }
+}
+runProjBars();
+
+// ══════════════════════════════════════════════════
+// HIRE MODAL
+// ══════════════════════════════════════════════════
+function openHire() {
+  document.getElementById('hireModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeHire() {
+  document.getElementById('hireModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function closeHireOutside(e) {
+  if (e.target.id === 'hireModal') closeHire();
+}
+function submitHire() {
+  var name = document.getElementById('hfName').value.trim();
+  var email = document.getElementById('hfEmail').value.trim();
+  var type = document.getElementById('hfType').value;
+  if (!name || !email || !type) {
+    alert(LANG === 'ar' ? 'يرجى ملء الحقول المطلوبة' : 'Please fill in required fields');
+    return;
+  }
+  var msg = 'Hello Osman! New Project Request:
+
+Name: ' + name + '
+Email: ' + email + '
+Type: ' + type + '
+Budget: ' + document.getElementById('hfBudget').value + '
+Message: ' + document.getElementById('hfMsg').value;
+  document.getElementById('hireForm').style.display = 'none';
+  document.getElementById('hireSuccess').classList.add('show');
+  setTimeout(function() {
+    window.open('https://wa.me/97455189022?text=' + encodeURIComponent(msg), '_blank');
+  }, 1200);
+}
+
+// ══════════════════════════════════════════════════
+// CONTACT FORM
+// ══════════════════════════════════════════════════
+function submitContact() {
+  var name = document.getElementById('cfName').value.trim();
+  var email = document.getElementById('cfEmail').value.trim();
+  var msg = document.getElementById('cfMsg').value.trim();
+  if (!name || !email || !msg) {
+    alert(LANG === 'ar' ? 'يرجى ملء جميع الحقول' : 'Please fill in all fields');
+    return;
+  }
+  var waMsg = 'Hello Osman!
+
+Name: ' + name + '
+Email: ' + email + '
+Subject: ' + document.getElementById('cfSubject').value + '
+Message: ' + msg;
+  document.getElementById('cfSuccess').classList.add('show');
+  ['cfName','cfEmail','cfSubject','cfMsg'].forEach(function(id) { document.getElementById(id).value = ''; });
+  setTimeout(function() {
+    window.open('https://wa.me/97455189022?text=' + encodeURIComponent(waMsg), '_blank');
+  }, 1000);
+}
+
+// ══════════════════════════════════════════════════
+// LIVE CHAT — FIXED
+// ══════════════════════════════════════════════════
+var chatOpen = false;
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  var widget = document.getElementById('chatWidget');
+  if (chatOpen) {
+    widget.style.display = 'flex';
+    widget.classList.add('open');
+  } else {
+    widget.style.display = 'none';
+    widget.classList.remove('open');
+  }
+}
+
+// Chat replies — both EN and AR
+var replies = {
+  en: {
+    'hi':      'Hi there! 👋 Great to hear from you! How can I help?',
+    'hello':   'Hello! Welcome to my portfolio. What can I do for you?',
+    'ahms':    'AHMS is the Afgoi Hospital Management System — a full hospital platform I'm building using my MBA in Hospital Management. Covers patient records, appointments, pharmacy, billing and more! 🏥',
+    'hospital':'The AHMS system I'm building for Afgoi Hospital covers everything from patient admissions to pharmacy management. My MBA makes this project unique! 🏥',
+    'travel':  'I have 15 years in travel, certified in Amadeus, Galileo, and Sabre GDS. My TravelExperts15 platform is live! ✈️',
+    'payroll': 'My Payroll System is built on 10 years of real payroll experience in Qatar. Supports GCC compliance and WPS. 💰',
+    'somali':  'Cilmiga Xiddigaha is the first Somali-language astrology app — combining traditional star knowledge with modern tech! ⭐ Unique project!',
+    'price':   'Rates depend on the project scope. WhatsApp me for a free quote: +974 5518 9022 💬',
+    'rate':    'Rates depend on the project scope. WhatsApp me for a free quote: +974 5518 9022 💬',
+    'cost':    'Rates depend on project scope. Contact me on WhatsApp for a free estimate! 💬',
+    'contact': 'Best way to reach me: WhatsApp +974 5518 9022 or osman@osmanahmedomar.com 📞',
+    'qatar':   'Yes, I'm based in Doha, Qatar! Available for local and international projects. 📍',
+    'website': 'I can build you a professional website! Let's discuss your requirements. WhatsApp: +974 5518 9022 🌐',
+    'default': [
+      'Great question! For details, reach out via WhatsApp: +974 5518 9022 💬',
+      'Thanks for asking! Let's connect on WhatsApp for a faster response 🚀',
+      'I'd love to help! Send me a message on WhatsApp: wa.me/97455189022'
+    ]
+  },
+  ar: {
+    'مرحبا':   'مرحباً بك! 👋 كيف يمكنني مساعدتك اليوم؟',
+    'مرحب':    'مرحباً! أنا عثمان. ماذا يمكنني أن أفعل لك؟',
+    'ahms':    'نظام AHMS هو نظام إدارة مستشفى أفغوي — منصة مستشفى متكاملة أبنيها باستخدام ماجستيري في إدارة المستشفيات. يشمل سجلات المرضى والمواعيد والصيدلية والفواتير! 🏥',
+    'سعر':     'الأسعار تعتمد على نطاق المشروع. تواصل معي عبر واتساب للحصول على عرض مجاني: +974 5518 9022 💬',
+    'سياحة':  'لدي 15 عاماً في السياحة، معتمد في Amadeus وGalileo وSabre. منصة TravelExperts15 مباشرة الآن! ✈️',
+    'رواتب':  'نظام الرواتب مبني على 10 سنوات من الخبرة الحقيقية في قطر. يدعم امتثال دول الخليج وWPS. 💰',
+    'موقع':   'يمكنني بناء موقع احترافي لك! دعنا نناقش متطلباتك. واتساب: +974 5518 9022 🌐',
+    'تواصل':  'أفضل طريقة للتواصل: واتساب +974 5518 9022 أو osman@osmanahmedomar.com 📞',
+    'default': [
+      'سؤال رائع! للتفاصيل، تواصل عبر واتساب: +974 5518 9022 💬',
+      'يسعدني المساعدة! أرسل لي رسالة على واتساب للرد السريع 🚀',
+      'شكراً لاهتمامك! دعنا نتواصل على واتساب: wa.me/97455189022'
+    ]
+  }
+};
+
+function getReply(msg) {
+  var lower = msg.toLowerCase();
+  var set = LANG === 'ar' ? replies.ar : replies.en;
+  for (var key in set) {
+    if (key !== 'default' && lower.indexOf(key) >= 0) return set[key];
+  }
+  var def = set['default'];
+  return def[Math.floor(Math.random() * def.length)];
+}
+
+function addChatMsg(text, type) {
+  var msgs = document.getElementById('chatMsgs');
+  var div = document.createElement('div');
+  div.className = 'chat-msg ' + type;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function sendChat() {
+  var inp = document.getElementById('chatInp');
+  var text = inp.value.trim();
+  if (!text) return;
+  addChatMsg(text, 'usr');
+  inp.value = '';
+  var typing = addChatMsg(LANG === 'ar' ? 'يكتب...' : 'Typing...', 'typing');
+  setTimeout(function() {
+    typing.remove();
+    addChatMsg(getReply(text), 'bot');
+  }, 800 + Math.random() * 500);
+}
+
+function quickSend(text) {
+  document.getElementById('chatInp').value = text;
+  sendChat();
+}
+
+// ══════════════════════════════════════════════════
+// LIGHTBOX
+// ══════════════════════════════════════════════════
+var certs = [{src:"images/img-024.jpg",title:"CSS: Web Page Layout",date:"Jan 2026 · University of London"},{src:"images/img-025.jpg",title:"HTML: How to Build a Website",date:"Jan 2026 · University of London"},{src:"images/img-026.jpg",title:"PMP Preparation · 35 PDUs",date:"Jan 2026"},{src:"images/img-027.jpg",title:"English for Career Development",date:"Mar 2021 · University of Pennsylvania"},{src:"images/img-028.png",title:"Leadership and Team Management",date:"May 2023"},{src:"images/img-029.png",title:"Business Planning and Entrepreneurship",date:"Apr 2024"},{src:"images/img-030.png",title:"Hospitality Management",date:"Aug 2023"},{src:"images/img-031.png",title:"Customer Experience and Service Excellence",date:"Sep 2023"},{src:"images/img-032.png",title:"Customer Experience and Service Excellence",date:"Mar 2023"},{src:"images/img-033.png",title:"Leadership and Team Management",date:"Jun 2023"},{src:"images/img-034.png",title:"Financial Management for Startups",date:"Mar-Apr 2023"},{src:"images/img-035.png",title:"Marketing and Branding Strategy",date:"Feb-Mar 2023"},{src:"images/img-036.png",title:"Business Planning and Entrepreneurship",date:"Apr 2023"},{src:"images/img-037.png",title:"Leadership Development and Cultural Mgmt",date:"Jul 2023"},{src:"images/img-038.png",title:"Innovation and Creative Problem Solving",date:"Oct 2022"},{src:"images/img-039.png",title:"Project Management",date:"May 2012"},{src:"images/img-040.png",title:"Business Workshops: Entrepreneurship",date:"Oct 2015"},{src:"images/img-041.png",title:"Hospitality and Customer Service Excellence",date:"Mar 2010"}];
+var lbIdx = 0;
+function openLightbox(i) {
+  lbIdx = i;
+  updateLB();
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLB() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function closeLBOut(e) { if (e.target.id === 'lightbox') closeLB(); }
+function updateLB() {
+  document.getElementById('lbImg').src = certs[lbIdx].src;
+  document.getElementById('lbTitle').textContent = certs[lbIdx].title;
+  document.getElementById('lbDate').textContent = certs[lbIdx].date;
+  document.getElementById('lbCount').textContent = (lbIdx + 1) + ' / ' + certs.length;
+}
+function lbPrev() { lbIdx = (lbIdx - 1 + certs.length) % certs.length; updateLB(); }
+function lbNext() { lbIdx = (lbIdx + 1) % certs.length; updateLB(); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { closeLB(); closeHire(); }
+  if (e.key === 'ArrowLeft') lbPrev();
+  if (e.key === 'ArrowRight') lbNext();
+});
+</script>
