@@ -10,12 +10,10 @@ function setLang(lang) {
 
   if (lang === 'ar') {
     body.classList.add('ar');
-    html.setAttribute('dir', 'rtl');
     html.setAttribute('lang', 'ar');
     document.getElementById('chatInp').placeholder = 'اكتب رسالة...';
   } else {
     body.classList.remove('ar');
-    html.setAttribute('dir', 'ltr');
     html.setAttribute('lang', 'en');
     document.getElementById('chatInp').placeholder = 'Type a message...';
   }
