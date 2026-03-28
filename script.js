@@ -55,6 +55,9 @@ function setLang(lang) {
   var body = document.body;
   var html = document.getElementById('htmlRoot');
 
+  // Freeze animations before changing direction to prevent page going empty
+  body.classList.add('lang-switched');
+
   if (lang === 'ar') {
     body.classList.add('ar');
     html.setAttribute('lang', 'ar');
