@@ -232,32 +232,6 @@ function quickSend(text) {
   sendChat();
 }
 
-// ══════════════════════════════════════════════════
-// LIGHTBOX
-// ══════════════════════════════════════════════════
-var certs = [{src:"images/img-024.jpg",title:"CSS: Web Page Layout",date:"Jan 2026 · University of London"},{src:"images/img-025.jpg",title:"HTML: How to Build a Website",date:"Jan 2026 · University of London"},{src:"images/img-026.jpg",title:"PMP Preparation · 35 PDUs",date:"Jan 2026"},{src:"images/img-027.jpg",title:"English for Career Development",date:"Mar 2021 · University of Pennsylvania"},{src:"images/img-028.png",title:"Leadership and Team Management",date:"May 2023"},{src:"images/img-029.png",title:"Business Planning and Entrepreneurship",date:"Apr 2024"},{src:"images/img-030.png",title:"Hospitality Management",date:"Aug 2023"},{src:"images/img-031.png",title:"Customer Experience and Service Excellence",date:"Sep 2023"},{src:"images/img-032.png",title:"Customer Experience and Service Excellence",date:"Mar 2023"},{src:"images/img-033.png",title:"Leadership and Team Management",date:"Jun 2023"},{src:"images/img-034.png",title:"Financial Management for Startups",date:"Mar-Apr 2023"},{src:"images/img-035.png",title:"Marketing and Branding Strategy",date:"Feb-Mar 2023"},{src:"images/img-036.png",title:"Business Planning and Entrepreneurship",date:"Apr 2023"},{src:"images/img-037.png",title:"Leadership Development and Cultural Mgmt",date:"Jul 2023"},{src:"images/img-038.png",title:"Innovation and Creative Problem Solving",date:"Oct 2022"},{src:"images/img-039.png",title:"Project Management",date:"May 2012"},{src:"images/img-040.png",title:"Business Workshops: Entrepreneurship",date:"Oct 2015"},{src:"images/img-041.png",title:"Hospitality and Customer Service Excellence",date:"Mar 2010"}];
-var lbIdx = 0;
-function openLightbox(i) {
-  lbIdx = i;
-  updateLB();
-  document.getElementById('lightbox').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-function closeLB() {
-  document.getElementById('lightbox').classList.remove('active');
-  document.body.style.overflow = '';
-}
-function closeLBOut(e) { if (e.target.id === 'lightbox') closeLB(); }
-function updateLB() {
-  document.getElementById('lbImg').src = certs[lbIdx].src;
-  document.getElementById('lbTitle').textContent = certs[lbIdx].title;
-  document.getElementById('lbDate').textContent = certs[lbIdx].date;
-  document.getElementById('lbCount').textContent = (lbIdx + 1) + ' / ' + certs.length;
-}
-function lbPrev() { lbIdx = (lbIdx - 1 + certs.length) % certs.length; updateLB(); }
-function lbNext() { lbIdx = (lbIdx + 1) % certs.length; updateLB(); }
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') { closeLB(); closeHire(); }
-  if (e.key === 'ArrowLeft') lbPrev();
-  if (e.key === 'ArrowRight') lbNext();
+  if (e.key === 'Escape') { closeHire(); }
 });
