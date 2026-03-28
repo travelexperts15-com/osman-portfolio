@@ -387,9 +387,6 @@ body.ar .chat-inp{font-family:'Tajawal',sans-serif;text-align:right;}
 .chat-send:hover{background:var(--gold2);}
 
 /* ── WA FLOAT ── */
-.wa-float{position:fixed;bottom:28px;right:28px;z-index:500;width:54px;height:54px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.4);animation:waPulse 2.5s ease-in-out infinite;}
-.wa-float:hover{transform:scale(1.12);animation:none;}
-body.ar .wa-float{right:auto;left:28px;}
 body.ar .chat-bubble{right:auto;left:28px;}
 body.ar .chat-widget{right:auto;left:28px;}
 @keyframes waPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.4);}50%{box-shadow:0 4px 32px rgba(37,211,102,0.7);}}
