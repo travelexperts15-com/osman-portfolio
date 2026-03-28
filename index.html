@@ -142,16 +142,19 @@
 <!-- NAV -->
 <nav id="navbar">
   <div class="nav-logo">O · A · Omar</div>
-  <div class="nav-links">
-    <a href="#home"><span class="en">Home</span><span class="ar">الرئيسية</span></a>
-    <a href="#about"><span class="en">About</span><span class="ar">عن</span></a>
-    <a href="#education"><span class="en">Education</span><span class="ar">تعليم</span></a>
-    <a href="#skills"><span class="en">Skills</span><span class="ar">مهارات</span></a>
-    <a href="#projects"><span class="en">Projects</span><span class="ar">مشاريع</span></a>
-    <a href="#certificates"><span class="en">Certificates</span><span class="ar">شهادات</span></a>
-    <a href="#contact"><span class="en">Contact</span><span class="ar">تواصل</span></a>
-    <a href="https://wa.me/97455189022" target="_blank" class="nav-wa">💬 WhatsApp</a>
+  <div class="nav-links" id="navLinks">
+    <a href="#home" onclick="closeNav()"><span class="en">Home</span><span class="ar">الرئيسية</span></a>
+    <a href="#about" onclick="closeNav()"><span class="en">About</span><span class="ar">عن</span></a>
+    <a href="#education" onclick="closeNav()"><span class="en">Education</span><span class="ar">تعليم</span></a>
+    <a href="#skills" onclick="closeNav()"><span class="en">Skills</span><span class="ar">مهارات</span></a>
+    <a href="#projects" onclick="closeNav()"><span class="en">Projects</span><span class="ar">مشاريع</span></a>
+    <a href="#certificates" onclick="closeNav()"><span class="en">Certificates</span><span class="ar">شهادات</span></a>
+    <a href="#contact" onclick="closeNav()"><span class="en">Contact</span><span class="ar">تواصل</span></a>
+    <a href="https://wa.me/97455189022" target="_blank" class="nav-wa" onclick="closeNav()">💬 WhatsApp</a>
   </div>
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -161,8 +164,7 @@
     <div class="hero-eyebrow"><span class="en">Based in Doha, Qatar</span><span class="ar">الدوحة، قطر</span></div>
     <h1 class="hero-name">Osman Ahmed<span>Omar</span></h1>
     <div class="hero-title">
-      <span class="en">Full Stack Developer &nbsp;·&nbsp; Tourism Expert &nbsp;·&nbsp; Finance Specialist</span>
-      <span class="ar">مطور ويب متكامل &nbsp;·&nbsp; خبير سياحة &nbsp;·&nbsp; متخصص مالي</span>
+      <span id="typewriter"></span><span class="typewriter-cursor">|</span>
     </div>
     <p class="hero-bio">
       <span class="en">Two decades of cross-industry mastery — from global tourism to financial management, now channeled into cutting-edge web development.</span>

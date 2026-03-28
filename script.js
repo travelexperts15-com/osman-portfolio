@@ -15,6 +15,40 @@ window.addEventListener('scroll', function() {
 });
 
 // ══════════════════════════════════════════════════
+// HAMBURGER MENU
+// ══════════════════════════════════════════════════
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+  document.getElementById('navHamburger').classList.toggle('open');
+}
+function closeNav() {
+  document.getElementById('navLinks').classList.remove('open');
+  document.getElementById('navHamburger').classList.remove('open');
+}
+
+// ══════════════════════════════════════════════════
+// TYPEWRITER
+// ══════════════════════════════════════════════════
+(function() {
+  var words = ['Full Stack Developer', 'Tourism Expert', 'Finance Specialist', 'Hospital Systems Builder'];
+  var el = document.getElementById('typewriter');
+  if (!el) return;
+  var wi = 0, ci = 0, deleting = false;
+  function tick() {
+    var word = words[wi];
+    if (!deleting) {
+      el.textContent = word.slice(0, ++ci);
+      if (ci === word.length) { deleting = true; setTimeout(tick, 1800); return; }
+    } else {
+      el.textContent = word.slice(0, --ci);
+      if (ci === 0) { deleting = false; wi = (wi + 1) % words.length; setTimeout(tick, 400); return; }
+    }
+    setTimeout(tick, deleting ? 55 : 90);
+  }
+  setTimeout(tick, 800);
+})();
+
+// ══════════════════════════════════════════════════
 // LANGUAGE SYSTEM — FIXED & CLEAN
 // ══════════════════════════════════════════════════
 var LANG = 'en';
