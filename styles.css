@@ -116,7 +116,7 @@ body.ar .stat-title{letter-spacing:0;font-size:0.9rem;}
 .stat-sub{font-size:0.68rem;color:var(--muted);letter-spacing:1px;margin-top:2px;}
 
 /* ── GALLERY ── */
-.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin:28px 0 60px;}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:28px 0 60px;}
 .gallery-full{margin:28px 0 60px;border-radius:4px;overflow:hidden;}
 .gallery-full img{width:100%;display:block;filter:brightness(0.95) contrast(1.05);}
 @media(max-width:600px){.gallery-grid{grid-template-columns:repeat(2,1fr);}}
