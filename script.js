@@ -45,6 +45,10 @@ function closeNav() {
 // LANGUAGE SYSTEM — FIXED & CLEAN
 // ══════════════════════════════════════════════════
 var LANG = 'en';
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('btnEN');
+  if (btn) btn.classList.add('active');
+});
 
 function setLang(lang) {
   LANG = lang;
