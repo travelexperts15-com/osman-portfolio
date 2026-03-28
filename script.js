@@ -6,13 +6,6 @@ window.addEventListener('load', function() {
   if (loader) { loader.classList.add('hidden'); setTimeout(function(){ loader.style.display='none'; }, 550); }
 });
 
-// ══════════════════════════════════════════════════
-// SCROLL TO TOP
-// ══════════════════════════════════════════════════
-window.addEventListener('scroll', function() {
-  var btn = document.getElementById('scrollTop');
-  if (btn) btn.classList.toggle('visible', window.scrollY > 400);
-});
 
 // ══════════════════════════════════════════════════
 // HAMBURGER MENU
@@ -68,18 +61,17 @@ function setLang(lang) {
     document.getElementById('chatInp').placeholder = 'Type a message...';
   }
 
-  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
-  document.getElementById('btnAR').classList.toggle('active', lang === 'ar');
 }
 
-// Set initial chat placeholder
-document.getElementById('chatInp').placeholder = 'Type a message...';
 
 // ══════════════════════════════════════════════════
-// NAV SCROLL
+// SCROLL EVENTS (merged)
 // ══════════════════════════════════════════════════
 window.addEventListener('scroll', function() {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  var sy = window.scrollY;
+  document.getElementById('navbar').classList.toggle('scrolled', sy > 50);
+  var btn = document.getElementById('scrollTop');
+  if (btn) btn.classList.toggle('visible', sy > 400);
   runCounters();
   runBars();
   runProjBars();
