@@ -55,8 +55,12 @@ function setLang(lang) {
   var body = document.body;
   var html = document.getElementById('htmlRoot');
 
-  // Freeze animations before changing direction to prevent page going empty
-  body.classList.add('lang-switched');
+  // Freeze all reveal animations inline before direction change
+  document.querySelectorAll('.reveal, [class*="d1"], [class*="d2"], [class*="d3"]').forEach(function(el) {
+    el.style.animation = 'none';
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
 
   if (lang === 'ar') {
     body.classList.add('ar');
