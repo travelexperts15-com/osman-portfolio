@@ -384,11 +384,26 @@ body.ar .chat-widget{right:auto;left:28px;}
 .lb-count{position:absolute;bottom:-26px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:3px;color:var(--muted);white-space:nowrap;}
 @media(max-width:700px){.lb-prev{left:0;}.lb-next{right:0;}}
 
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity 0.5s ease;}
+#loader.hidden{opacity:0;pointer-events:none;}
+.loader-ring{width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ── SCROLL TO TOP ── */
+#scrollTop{position:fixed;bottom:92px;right:28px;z-index:600;width:40px;height:40px;background:var(--card);border:1px solid var(--border);color:var(--gold);font-size:14px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity 0.3s,background 0.2s;display:flex;align-items:center;justify-content:center;}
+#scrollTop.visible{opacity:1;pointer-events:all;}
+#scrollTop:hover{background:rgba(201,168,76,0.15);}
+body.ar #scrollTop{right:auto;left:28px;}
+
 /* ── FOOTER ── */
 footer{background:var(--bg);border-top:1px solid var(--border);padding:24px 44px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
 @media(max-width:600px){footer{padding:18px 16px;justify-content:center;text-align:center;}}
 .footer-name{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold);letter-spacing:2px;}
 .footer-copy{font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);}
+.footer-socials{display:flex;gap:10px;}
+.footer-social-link{width:32px;height:32px;border:1px solid var(--border);color:var(--muted);text-decoration:none;font-size:9px;letter-spacing:1px;text-transform:uppercase;font-family:'Syne',sans-serif;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s,color 0.2s;}
+.footer-social-link:hover{border-color:var(--gold);color:var(--gold);}
 
 @keyframes slideRight{from{opacity:0;transform:translateX(-40px);}to{opacity:1;transform:translateX(0);}}
 @keyframes slideLeft{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}

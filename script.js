@@ -1,4 +1,20 @@
 // ══════════════════════════════════════════════════
+// LOADER
+// ══════════════════════════════════════════════════
+window.addEventListener('load', function() {
+  var loader = document.getElementById('loader');
+  if (loader) { loader.classList.add('hidden'); setTimeout(function(){ loader.style.display='none'; }, 550); }
+});
+
+// ══════════════════════════════════════════════════
+// SCROLL TO TOP
+// ══════════════════════════════════════════════════
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('scrollTop');
+  if (btn) btn.classList.toggle('visible', window.scrollY > 400);
+});
+
+// ══════════════════════════════════════════════════
 // LANGUAGE SYSTEM — FIXED & CLEAN
 // ══════════════════════════════════════════════════
 var LANG = 'en';
