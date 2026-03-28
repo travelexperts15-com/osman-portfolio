@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://travelexperts15-com.github.io/osman-portfolio/sitemap.xml
